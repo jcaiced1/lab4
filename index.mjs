@@ -12,6 +12,7 @@ const app = express();
 const PORT = process.env.PORT || 3000;
 const NASA_API_KEY =
   process.env.NASA_API_KEY || "9mUzIkhlZCZaOoMfspgZjMnwZCZ4LiRHtkgkambD";
+const NASA_FALLBACK_KEY = "DEMO_KEY";
 const UNSPLASH_API_KEY =
   process.env.UNSPLASH_API_KEY ||
   "7756a1e81f817c186cf57294e1c19b37b49c54b8f34e7c499ee0ce5cd86cd16e";
@@ -75,6 +76,28 @@ async function getRandomBackgroundImage() {
   }
 }
 
+function getPacificDate() {
+  return new Intl.DateTimeFormat("en-CA", {
+    timeZone: "America/Los_Angeles",
+  }).format(new Date());
+}
+
+async function getApod(date) {
+  const apiKeys = [NASA_API_KEY, NASA_FALLBACK_KEY];
+
+  for (const apiKey of apiKeys) {
+    const endpoint =
+      `https://api.nasa.gov/planetary/apod?api_key=${apiKey}&date=${date}`;
+    const response = await fetch(endpoint);
+
+    if (response.ok) {
+      return response.json();
+    }
+  }
+
+  throw new Error("NASA APOD request failed for all configured API keys.");
+}
+
 app.get("/", async (req, res) => {
   const backgroundImage = await getRandomBackgroundImage();
 
@@ -111,18 +134,10 @@ app.get("/planet", (req, res) => {
 });
 
 app.get("/nasa", async (req, res) => {
-  const today = new Date().toISOString().slice(0, 10);
-  const endpoint =
-    `https://api.nasa.gov/planetary/apod?api_key=${NASA_API_KEY}&date=${today}`;
+  const today = getPacificDate();
 
   try {
-    const response = await fetch(endpoint);
-
-    if (!response.ok) {
-      throw new Error(`NASA request failed with status ${response.status}`);
-    }
-
-    const apod = await response.json();
+    const apod = await getApod(today);
 
     return res.render("nasa", {
       title: "NASA Picture of the Day",
