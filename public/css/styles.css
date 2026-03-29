@@ -227,7 +227,7 @@ body {
 .planet-marquee {
   overflow-x: hidden;
   overflow-y: visible;
-  padding: 1.1rem 0 2.8rem;
+  padding: 1.8rem 0 2.8rem;
 }
 
 .planet-marquee-track {
@@ -265,8 +265,8 @@ body {
 }
 
 .planet-card {
-  width: 250px;
-  min-width: 250px;
+  width: 228px;
+  min-width: 228px;
   transition:
     transform 220ms ease,
     box-shadow 220ms ease,
@@ -295,7 +295,7 @@ body {
 
 .planet-card:hover,
 .planet-card.is-active {
-  transform: translate3d(0.6rem, -20px, 0) scale(1.04) rotate(-2.8deg);
+  transform: translate3d(0.45rem, -12px, 0) scale(1.03) rotate(-2.2deg);
   border-color: rgba(247, 181, 56, 0.45);
   box-shadow: 0 28px 70px rgba(0, 0, 0, 0.4);
   filter: saturate(1.05);
@@ -312,7 +312,7 @@ body {
 }
 
 .planet-card-body h2 {
-  font-size: 2rem;
+  font-size: 1.8rem;
   margin-bottom: 0.6rem;
 }
 
@@ -496,8 +496,8 @@ body {
   }
 
   .planet-card {
-    width: 220px;
-    min-width: 220px;
+    width: 208px;
+    min-width: 208px;
   }
 
   .planet-card + .planet-card,
