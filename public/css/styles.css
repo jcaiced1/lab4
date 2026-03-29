@@ -154,26 +154,41 @@ body {
 
 .planet-marquee-shell {
   position: relative;
-  overflow: hidden;
-  padding: 0.25rem 0;
-  mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
-  -webkit-mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
+  overflow: visible;
+  padding: 1.1rem 0 0.4rem;
+}
+
+.planet-marquee-shell::before,
+.planet-marquee-shell::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 4.5rem;
+  pointer-events: none;
+  z-index: 20;
+}
+
+.planet-marquee-shell::before {
+  left: 0;
+  background: linear-gradient(90deg, #0a1425, rgba(10, 20, 37, 0));
+}
+
+.planet-marquee-shell::after {
+  right: 0;
+  background: linear-gradient(270deg, #0a1425, rgba(10, 20, 37, 0));
 }
 
 .planet-marquee {
   overflow-x: hidden;
   overflow-y: visible;
-  padding: 2rem 0 2.5rem;
+  padding: 1.1rem 0 2.8rem;
 }
 
 .planet-marquee-track {
   display: flex;
   width: max-content;
-  animation: planet-marquee-scroll 36s linear infinite;
-}
-
-.planet-marquee:hover .planet-marquee-track {
-  animation-play-state: paused;
+  will-change: transform;
 }
 
 .planet-marquee-group {
@@ -213,14 +228,15 @@ body {
   margin: 0;
   position: relative;
   z-index: 1;
+  overflow: hidden;
 }
 
 .planet-card + .planet-card {
-  margin-left: -4.75rem;
+  margin-left: -6.4rem;
 }
 
 .planet-marquee-group + .planet-marquee-group {
-  margin-left: -4.75rem;
+  margin-left: -6.4rem;
 }
 
 .planet-card:hover,
@@ -399,16 +415,6 @@ body {
   font-weight: 500;
 }
 
-@keyframes planet-marquee-scroll {
-  from {
-    transform: translateX(0);
-  }
-
-  to {
-    transform: translateX(-50%);
-  }
-}
-
 @media (max-width: 992px) {
   .hero-copy {
     padding: 3rem 0 1rem;
@@ -418,13 +424,13 @@ body {
     grid-template-columns: 1fr;
   }
 
-  .planet-marquee-shell {
-    mask-image: none;
-    -webkit-mask-image: none;
+  .planet-marquee-shell::before,
+  .planet-marquee-shell::after {
+    width: 2.5rem;
   }
 
-  .planet-marquee-track {
-    animation-duration: 28s;
+  .planet-marquee {
+    padding-bottom: 2.2rem;
   }
 
   .planet-preview-panel {
@@ -438,7 +444,7 @@ body {
 
   .planet-card + .planet-card,
   .planet-marquee-group + .planet-marquee-group {
-    margin-left: -3.4rem;
+    margin-left: -4.2rem;
   }
 
   .planet-card-image {
