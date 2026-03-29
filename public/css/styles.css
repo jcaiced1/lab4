@@ -59,9 +59,53 @@ body {
 }
 
 .hero {
+  position: relative;
+  overflow: hidden;
   background-position: center;
   background-size: cover;
   border-bottom: 1px solid var(--line);
+}
+
+.hero::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(circle at 18% 22%, rgba(255, 255, 255, 0.2) 0 1.5px, transparent 2px),
+    radial-gradient(circle at 34% 36%, rgba(255, 255, 255, 0.22) 0 1.8px, transparent 2.3px),
+    radial-gradient(circle at 58% 18%, rgba(255, 255, 255, 0.16) 0 1.6px, transparent 2.1px),
+    radial-gradient(circle at 72% 28%, rgba(255, 255, 255, 0.18) 0 1.6px, transparent 2.2px),
+    radial-gradient(circle at 83% 42%, rgba(255, 255, 255, 0.18) 0 2px, transparent 2.5px),
+    radial-gradient(circle at 20% 78%, rgba(255, 255, 255, 0.14) 0 1.6px, transparent 2px),
+    radial-gradient(circle at 68% 82%, rgba(255, 255, 255, 0.16) 0 1.7px, transparent 2.2px),
+    radial-gradient(circle at 88% 72%, rgba(255, 255, 255, 0.12) 0 1.6px, transparent 2.1px);
+  opacity: 0.7;
+  pointer-events: none;
+}
+
+.hero::after {
+  content: "";
+  position: absolute;
+  inset: 3rem 8% 2rem auto;
+  width: min(62vw, 820px);
+  background:
+    radial-gradient(circle at 28% 60%, rgba(246, 185, 75, 0.24) 0 2%, transparent 2.4%),
+    radial-gradient(circle at 55% 48%, rgba(246, 185, 75, 0.42) 0 6%, transparent 6.5%),
+    radial-gradient(circle at 74% 34%, rgba(112, 165, 255, 0.28) 0 2.2%, transparent 2.7%),
+    radial-gradient(circle at 86% 68%, rgba(212, 112, 89, 0.24) 0 3.2%, transparent 3.7%),
+    radial-gradient(circle at 14% 72%, rgba(244, 202, 111, 0.18) 0 4%, transparent 4.6%),
+    radial-gradient(circle at 66% 72%, rgba(255, 255, 255, 0.12) 0 1.4%, transparent 1.8%),
+    radial-gradient(circle at 50% 52%, transparent 0 19%, rgba(43, 77, 146, 0.18) 19.2% 19.45%, transparent 19.7%),
+    radial-gradient(circle at 50% 52%, transparent 0 30%, rgba(43, 77, 146, 0.16) 30.2% 30.45%, transparent 30.7%),
+    radial-gradient(circle at 50% 52%, transparent 0 41%, rgba(43, 77, 146, 0.14) 41.2% 41.45%, transparent 41.7%),
+    radial-gradient(circle at 50% 52%, transparent 0 52%, rgba(43, 77, 146, 0.12) 52.2% 52.45%, transparent 52.7%);
+  opacity: 0.95;
+  pointer-events: none;
+}
+
+.hero > .container {
+  position: relative;
+  z-index: 1;
 }
 
 .hero-copy {
@@ -206,6 +250,12 @@ body {
 
 .planet-card-image {
   height: 230px;
+  display: block;
+  position: relative;
+  z-index: 0;
+  background: #02060f;
+  backface-visibility: hidden;
+  transform: translateZ(0);
 }
 
 .planet-card-body,
@@ -229,6 +279,10 @@ body {
   position: relative;
   z-index: 1;
   overflow: hidden;
+  background-color: #0a1425;
+  backface-visibility: hidden;
+  transform: translateZ(0);
+  isolation: isolate;
 }
 
 .planet-card + .planet-card {
@@ -241,7 +295,7 @@ body {
 
 .planet-card:hover,
 .planet-card.is-active {
-  transform: translateY(-20px) translateX(0.6rem) scale(1.04) rotate(-2.8deg);
+  transform: translate3d(0.6rem, -20px, 0) scale(1.04) rotate(-2.8deg);
   border-color: rgba(247, 181, 56, 0.45);
   box-shadow: 0 28px 70px rgba(0, 0, 0, 0.4);
   z-index: 10;
@@ -261,6 +315,11 @@ body {
 .planet-card-body h2 {
   font-size: 2rem;
   margin-bottom: 0.6rem;
+}
+
+.planet-card-body {
+  position: relative;
+  z-index: 1;
 }
 
 .planet-card-body .btn {
