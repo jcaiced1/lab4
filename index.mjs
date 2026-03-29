@@ -81,12 +81,6 @@ async function getRandomBackgroundImage() {
   }
 }
 
-function getPacificDate() {
-  return new Intl.DateTimeFormat("en-CA", {
-    timeZone: "America/Los_Angeles",
-  }).format(new Date());
-}
-
 async function fetchApod(date, apiKey) {
   const endpoint = new URL("https://api.nasa.gov/planetary/apod");
   endpoint.searchParams.set("api_key", apiKey);
@@ -106,7 +100,7 @@ async function fetchApod(date, apiKey) {
 
 async function getApod(date) {
   const apiKeys = [NASA_API_KEY, NASA_FALLBACK_KEY];
-  const requestDates = [date, null];
+  const requestDates = date ? [date, null] : [null];
 
   for (const apiKey of apiKeys) {
     for (const requestDate of requestDates) {
@@ -126,7 +120,7 @@ app.get("/", async (req, res) => {
   let homeApod = null;
 
   try {
-    homeApod = await getApod(getPacificDate());
+    homeApod = await getApod();
   } catch (error) {
     homeApod = null;
   }
@@ -165,10 +159,8 @@ app.get("/planet", (req, res) => {
 });
 
 app.get("/nasa", async (req, res) => {
-  const today = getPacificDate();
-
   try {
-    const apod = await getApod(today);
+    const apod = await getApod();
 
     return res.render("nasa", {
       title: "NASA Picture of the Day",
