@@ -87,16 +87,34 @@ function getPacificDate() {
   }).format(new Date());
 }
 
+async function fetchApod(date, apiKey) {
+  const endpoint = new URL("https://api.nasa.gov/planetary/apod");
+  endpoint.searchParams.set("api_key", apiKey);
+
+  if (date) {
+    endpoint.searchParams.set("date", date);
+  }
+
+  const response = await fetch(endpoint);
+
+  if (!response.ok) {
+    throw new Error(`NASA APOD request failed with status ${response.status}`);
+  }
+
+  return response.json();
+}
+
 async function getApod(date) {
   const apiKeys = [NASA_API_KEY, NASA_FALLBACK_KEY];
+  const requestDates = [date, null];
 
   for (const apiKey of apiKeys) {
-    const endpoint =
-      `https://api.nasa.gov/planetary/apod?api_key=${apiKey}&date=${date}`;
-    const response = await fetch(endpoint);
-
-    if (response.ok) {
-      return response.json();
+    for (const requestDate of requestDates) {
+      try {
+        return await fetchApod(requestDate, apiKey);
+      } catch (error) {
+        continue;
+      }
     }
   }
 

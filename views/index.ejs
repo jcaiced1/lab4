@@ -1,46 +1,26 @@
 <%- include("partials/header", { title, planetNames }) %>
 
-<main class="hero hero-3d" style="background-image: linear-gradient(rgba(4, 10, 24, 0.72), rgba(4, 10, 24, 0.88)), url('<%= backgroundImage %>');">
+<main class="hero" style="background-image: linear-gradient(rgba(4, 10, 24, 0.72), rgba(4, 10, 24, 0.88)), url('<%= backgroundImage %>');">
   <section class="container py-5">
-    <div class="hero-3d-layout">
-      <div class="hero-copy">
-        <div class="hero-badge-row">
-          <span class="eyebrow">CST336 Lab 4</span>
-          <span class="hero-chip">NASA POD + Planet Routes</span>
-        </div>
-        <h1>Explore the Solar System in 3D</h1>
-        <p class="lead">
-          Interact with the orbital model, jump into planet detail routes, and compare everything with NASA's Astronomy Picture of the Day.
-        </p>
-        <div class="hero-actions">
-          <a class="btn btn-warning btn-lg" href="/nasa">See Today's NASA Image</a>
-          <a class="btn btn-outline-light btn-lg" href="/planet?planetName=Earth">Open Planet Explorer</a>
-        </div>
-        <div class="hero-course-panel">
-          <img src="/img/csumb-logo.png" alt="CSUMB logo" class="hero-course-logo">
-          <div>
-            <strong>California State University, Monterey Bay</strong>
-            <p><%= courseName %> · Jose Caicedo</p>
-          </div>
-        </div>
-        <% if (homeApod) { %>
-          <article class="pod-preview">
-            <p class="eyebrow">NASA POD Briefing</p>
-            <h2><%= homeApod.title %></h2>
-            <p class="pod-date"><%= homeApod.date %></p>
-            <p><%= homeApod.explanation.slice(0, 210) %>...</p>
-            <a href="/nasa" class="pod-link">Read the full NASA POD</a>
-          </article>
-        <% } %>
+    <div class="hero-copy">
+      <p class="eyebrow">Lab 4 Express App</p>
+      <h1>Explore the Solar System</h1>
+      <p class="lead">
+        Browse all eight planets, review core facts like moons and radius,
+        and check today's Astronomy Picture of the Day from NASA.
+      </p>
+      <div class="hero-actions">
+        <a class="btn btn-warning btn-lg" href="/nasa">See Today's NASA Image</a>
       </div>
-
-      <div class="solar-stage-panel">
-        <div class="solar-stage-copy">
-          <p class="eyebrow mb-2">Interactive 3D Mission Control</p>
-          <p class="mb-0">Drag to orbit. Scroll to zoom. Click a planet to jump straight into its lab route.</p>
-        </div>
-        <div class="solar-stage" id="solar-stage" data-planet-base-url="/planet?planetName="></div>
-      </div>
+      <% if (homeApod) { %>
+        <article class="pod-preview">
+          <p class="eyebrow">NASA POD Briefing</p>
+          <h2><%= homeApod.title %></h2>
+          <p class="pod-date"><%= homeApod.date %></p>
+          <p><%= homeApod.explanation.slice(0, 210) %>...</p>
+          <a href="/nasa" class="pod-link">Read the full NASA POD</a>
+        </article>
+      <% } %>
     </div>
   </section>
 </main>
@@ -64,12 +44,3 @@
 </section>
 
 <%- include("partials/footer") %>
-<script type="importmap">
-  {
-    "imports": {
-      "three": "/vendor/three/three.module.js",
-      "three/addons/": "/vendor/three/addons/"
-    }
-  }
-</script>
-<script type="module" src="/js/solar-scene.js"></script>
