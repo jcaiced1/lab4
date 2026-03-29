@@ -2,7 +2,7 @@ const cards = [...document.querySelectorAll("[data-planet-preview]")];
 const panels = [...document.querySelectorAll("[data-planet-panel]")];
 
 if (cards.length && panels.length) {
-  function setActivePlanet(index) {
+  function setActivePlanet(index, highlightCard = true) {
     panels.forEach((panel) => {
       panel.classList.toggle(
         "is-active",
@@ -13,7 +13,7 @@ if (cards.length && panels.length) {
     cards.forEach((card) => {
       card.classList.toggle(
         "is-active",
-        card.dataset.planetPreview === String(index)
+        highlightCard && card.dataset.planetPreview === String(index)
       );
     });
   }
@@ -25,5 +25,5 @@ if (cards.length && panels.length) {
     card.addEventListener("focus", () => setActivePlanet(index));
   });
 
-  setActivePlanet(0);
+  setActivePlanet(0, false);
 }
