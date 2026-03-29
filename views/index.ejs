@@ -1,16 +1,25 @@
 <%- include("partials/header", { title, planetNames }) %>
 
-<main class="hero" style="background-image: linear-gradient(rgba(4, 10, 24, 0.72), rgba(4, 10, 24, 0.88)), url('<%= backgroundImage %>');">
+<main class="hero hero-3d" style="background-image: linear-gradient(rgba(4, 10, 24, 0.72), rgba(4, 10, 24, 0.88)), url('<%= backgroundImage %>');">
   <section class="container py-5">
-    <div class="hero-copy">
-      <p class="eyebrow">Lab 4 Express App</p>
-      <h1>Explore the Solar System</h1>
-      <p class="lead">
-        Browse all eight planets, review core facts like moons and radius,
-        and check today's Astronomy Picture of the Day from NASA.
-      </p>
-      <div class="hero-actions">
-        <a class="btn btn-warning btn-lg" href="/nasa">See Today's NASA Image</a>
+    <div class="hero-3d-layout">
+      <div class="hero-copy">
+        <p class="eyebrow">Lab 4 Express App</p>
+        <h1>Explore the Solar System</h1>
+        <p class="lead">
+          Rotate the model, click a planet, then use the planet pages and NASA POD route for the full lab content.
+        </p>
+        <div class="hero-actions">
+          <a class="btn btn-warning btn-lg" href="/nasa">See Today's NASA Image</a>
+        </div>
+      </div>
+
+      <div class="solar-stage-panel">
+        <div class="solar-stage-copy">
+          <p class="eyebrow mb-2">Interactive 3D View</p>
+          <p class="mb-0">Drag to orbit the camera. Click any planet to open its details page.</p>
+        </div>
+        <div class="solar-stage" id="solar-stage" data-planet-base-url="/planet?planetName="></div>
       </div>
     </div>
   </section>
@@ -35,3 +44,4 @@
 </section>
 
 <%- include("partials/footer") %>
+<script type="module" src="/js/solar-scene.js"></script>
