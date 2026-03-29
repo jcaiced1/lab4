@@ -176,7 +176,8 @@ body {
 
 .planet-showcase {
   position: relative;
-  overflow: hidden;
+  overflow: visible;
+  padding-top: 0.8rem;
 }
 
 .planet-showcase-copy {
@@ -277,7 +278,6 @@ body {
     var(--panel);
   margin: 0;
   position: relative;
-  z-index: 1;
   overflow: hidden;
   background-color: #0a1425;
   backface-visibility: hidden;
@@ -298,7 +298,6 @@ body {
   transform: translate3d(0.6rem, -20px, 0) scale(1.04) rotate(-2.8deg);
   border-color: rgba(247, 181, 56, 0.45);
   box-shadow: 0 28px 70px rgba(0, 0, 0, 0.4);
-  z-index: 10;
   filter: saturate(1.05);
 }
 
