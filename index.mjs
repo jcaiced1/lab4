@@ -10,8 +10,8 @@ const __dirname = path.dirname(__filename);
 
 const app = express();
 const PORT = process.env.PORT || 3000;
-const NASA_API_KEY =
-  process.env.NASA_API_KEY || "9mUzIkhlZCZaOoMfspg7jMmwZCZ4LiRHtkgkambD";
+const NASA_PROFESSOR_KEY = "9mUzIkhlZCZaOoMfspg7jMmwZCZ4LiRHtkgkambD";
+const NASA_API_KEY = process.env.NASA_API_KEY?.trim();
 const NASA_FALLBACK_KEY = "DEMO_KEY";
 const UNSPLASH_API_KEY =
   process.env.UNSPLASH_API_KEY ||
@@ -105,7 +105,7 @@ async function fetchApod(date, apiKey) {
 }
 
 async function getApod(date) {
-  const apiKeys = [NASA_API_KEY, NASA_FALLBACK_KEY];
+  const apiKeys = [...new Set([NASA_API_KEY, NASA_PROFESSOR_KEY, NASA_FALLBACK_KEY].filter(Boolean))];
   const requestDates = date ? [date, null] : [null];
   const failures = [];
 
@@ -114,7 +114,12 @@ async function getApod(date) {
       try {
         return await fetchApod(requestDate, apiKey);
       } catch (error) {
-        const apiKeyLabel = apiKey === NASA_API_KEY ? "NASA_API_KEY" : "DEMO_KEY";
+        const apiKeyLabel =
+          apiKey === NASA_API_KEY
+            ? "NASA_API_KEY"
+            : apiKey === NASA_PROFESSOR_KEY
+              ? "NASA_PROFESSOR_KEY"
+              : "DEMO_KEY";
         const dateLabel = requestDate || "latest";
         failures.push(`${apiKeyLabel} (${dateLabel}): ${error.message}`);
         continue;
