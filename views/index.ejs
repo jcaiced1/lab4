@@ -25,21 +25,35 @@
   </section>
 </main>
 
-<section class="container py-5">
-  <div class="row g-4">
-    <% planets.forEach((planet) => { %>
-      <div class="col-md-6 col-xl-3">
-        <article class="planet-card h-100">
-          <img src="<%= planet.image %>" alt="<%= planet.name %>" class="planet-card-image">
-          <div class="planet-card-body">
-            <p class="planet-order">Solar System Planet</p>
-            <h2><%= planet.name %></h2>
-            <p>Open the planet page to see its image, number of moons, radius, year length, and more.</p>
-            <a href="/planet?planetName=<%= planet.name %>" class="btn btn-outline-light">View Details</a>
+<section class="planet-showcase py-5">
+  <div class="container">
+    <div class="planet-showcase-copy">
+      <p class="eyebrow">Planet Deck</p>
+      <h2>One moving row, all eight planets.</h2>
+      <p class="lead mb-0">
+        Hover any card to bring it forward, then jump into the detail route for that planet.
+      </p>
+    </div>
+
+    <div class="planet-marquee">
+      <div class="planet-marquee-track">
+        <% [false, true].forEach((isDuplicate) => { %>
+          <div class="planet-marquee-group"<% if (isDuplicate) { %> aria-hidden="true"<% } %>>
+            <% planets.forEach((planet) => { %>
+              <article class="planet-card">
+                <img src="<%= planet.image %>" alt="<%= planet.name %>" class="planet-card-image">
+                <div class="planet-card-body">
+                  <p class="planet-order">Solar System Planet</p>
+                  <h2><%= planet.name %></h2>
+                  <p>Open the planet page to see its image, number of moons, radius, year length, and more.</p>
+                  <a href="/planet?planetName=<%= planet.name %>" class="btn btn-outline-light">View Details</a>
+                </div>
+              </article>
+            <% }) %>
           </div>
-        </article>
+        <% }) %>
       </div>
-    <% }) %>
+    </div>
   </div>
 </section>
 

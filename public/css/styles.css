@@ -130,6 +130,45 @@ body {
   box-shadow: 0 20px 60px rgba(0, 0, 0, 0.22);
 }
 
+.planet-showcase {
+  position: relative;
+  overflow: hidden;
+}
+
+.planet-showcase-copy {
+  max-width: 680px;
+  margin-bottom: 2rem;
+}
+
+.planet-showcase-copy h2 {
+  font-size: clamp(2rem, 4vw, 3.25rem);
+  margin-bottom: 0.75rem;
+}
+
+.planet-marquee {
+  position: relative;
+  overflow: hidden;
+  padding: 1.5rem 0;
+  mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
+  -webkit-mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
+}
+
+.planet-marquee-track {
+  display: flex;
+  width: max-content;
+  animation: planet-marquee-scroll 42s linear infinite;
+}
+
+.planet-marquee:hover .planet-marquee-track {
+  animation-play-state: paused;
+}
+
+.planet-marquee-group {
+  display: flex;
+  gap: 1.35rem;
+  padding-right: 1.35rem;
+}
+
 .planet-card-image,
 .planet-hero-image,
 .apod-media {
@@ -138,7 +177,7 @@ body {
 }
 
 .planet-card-image {
-  height: 220px;
+  height: 230px;
 }
 
 .planet-card-body,
@@ -146,9 +185,42 @@ body {
   padding: 1.5rem;
 }
 
+.planet-card {
+  width: 250px;
+  min-width: 250px;
+  transition: transform 220ms ease, box-shadow 220ms ease, border-color 220ms ease;
+  transform-origin: center bottom;
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.04), rgba(255, 255, 255, 0)),
+    var(--panel);
+}
+
+.planet-card:nth-child(odd) {
+  transform: rotate(-2deg);
+}
+
+.planet-card:nth-child(even) {
+  transform: rotate(2deg);
+}
+
+.planet-card:hover {
+  transform: translateY(-18px) scale(1.03) rotate(0deg);
+  border-color: rgba(247, 181, 56, 0.45);
+  box-shadow: 0 28px 70px rgba(0, 0, 0, 0.4);
+}
+
 .planet-order {
   color: var(--accent);
   margin-bottom: 0.4rem;
+}
+
+.planet-card-body h2 {
+  font-size: 2rem;
+  margin-bottom: 0.6rem;
+}
+
+.planet-card-body .btn {
+  margin-top: 0.6rem;
 }
 
 .planet-layout {
@@ -235,9 +307,37 @@ body {
   font-weight: 500;
 }
 
+@keyframes planet-marquee-scroll {
+  from {
+    transform: translateX(0);
+  }
+
+  to {
+    transform: translateX(calc(-50% - 0.675rem));
+  }
+}
+
 @media (max-width: 992px) {
   .hero-copy {
     padding: 3rem 0 1rem;
+  }
+
+  .planet-marquee {
+    mask-image: none;
+    -webkit-mask-image: none;
+  }
+
+  .planet-marquee-track {
+    animation-duration: 30s;
+  }
+
+  .planet-card {
+    width: 220px;
+    min-width: 220px;
+  }
+
+  .planet-card-image {
+    height: 200px;
   }
 
   .planet-layout {
