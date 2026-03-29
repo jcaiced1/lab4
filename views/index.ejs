@@ -29,32 +29,54 @@
   <div class="container">
     <div class="planet-showcase-copy">
       <p class="eyebrow">Planet Deck</p>
-      <h2>One moving row, all eight planets.</h2>
+      <h2>Moving cards on the left, one focused planet on the right.</h2>
       <p class="lead mb-0">
-        Hover any card to bring it forward, then jump into the detail route for that planet.
+        Hover any card to lift it out of the row and update the preview panel.
       </p>
     </div>
 
-    <div class="planet-marquee">
-      <div class="planet-marquee-track">
-        <% [false, true].forEach((isDuplicate) => { %>
-          <div class="planet-marquee-group"<% if (isDuplicate) { %> aria-hidden="true"<% } %>>
-            <% planets.forEach((planet) => { %>
-              <article class="planet-card">
-                <img src="<%= planet.image %>" alt="<%= planet.name %>" class="planet-card-image">
-                <div class="planet-card-body">
-                  <p class="planet-order">Solar System Planet</p>
-                  <h2><%= planet.name %></h2>
-                  <p>Open the planet page to see its image, number of moons, radius, year length, and more.</p>
-                  <a href="/planet?planetName=<%= planet.name %>" class="btn btn-outline-light">View Details</a>
-                </div>
-              </article>
+    <div class="planet-showcase-grid">
+      <div class="planet-marquee-shell">
+        <div class="planet-marquee">
+          <div class="planet-marquee-track">
+            <% [0, 1].forEach(() => { %>
+              <div class="planet-marquee-group">
+                <% planets.forEach((planet, index) => { %>
+                  <article class="planet-card" data-planet-preview="<%= index %>" tabindex="0">
+                    <img src="<%= planet.image %>" alt="<%= planet.name %>" class="planet-card-image">
+                    <div class="planet-card-body">
+                      <p class="planet-order">Solar System Planet</p>
+                      <h2><%= planet.name %></h2>
+                      <p>Open the planet page to see its image, number of moons, radius, year length, and more.</p>
+                      <a href="/planet?planetName=<%= planet.name %>" class="btn btn-outline-light">View Details</a>
+                    </div>
+                  </article>
+                <% }) %>
+              </div>
             <% }) %>
           </div>
-        <% }) %>
+        </div>
       </div>
+
+      <aside class="planet-preview-panel">
+        <% planets.forEach((planet, index) => { %>
+          <article class="planet-preview-card<%= index === 0 ? " is-active" : "" %>" data-planet-panel="<%= index %>">
+            <img src="<%= planet.image %>" alt="<%= planet.name %>" class="planet-preview-image">
+            <div class="planet-preview-body">
+              <p class="eyebrow">Featured Planet</p>
+              <h3><%= planet.name %></h3>
+              <p>
+                Explore <%= planet.name %> in the detail route to review its image, moons, radius,
+                year length, and the rest of the lab facts.
+              </p>
+              <a href="/planet?planetName=<%= planet.name %>" class="btn btn-warning">Open <%= planet.name %></a>
+            </div>
+          </article>
+        <% }) %>
+      </aside>
     </div>
   </div>
 </section>
 
 <%- include("partials/footer") %>
+<script type="module" src="/js/planet-showcase.js"></script>
