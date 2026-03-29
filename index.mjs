@@ -25,6 +25,23 @@ const planetNames = [
   "Uranus",
   "Neptune",
 ];
+const planetImages = {
+  Mercury: "https://images-assets.nasa.gov/image/PIA16853/PIA16853~orig.jpg",
+  Venus: "https://images-assets.nasa.gov/image/PIA23791/PIA23791~orig.jpg",
+  Earth: "https://images-assets.nasa.gov/image/PIA18033/PIA18033~orig.jpg",
+  Mars: "https://images-assets.nasa.gov/image/PIA00407/PIA00407~orig.jpg",
+  Jupiter: "https://images-assets.nasa.gov/image/PIA02873/PIA02873~orig.jpg",
+  Saturn: "https://images-assets.nasa.gov/image/PIA11141/PIA11141~orig.jpg",
+  Uranus: "https://images-assets.nasa.gov/image/PIA18182/PIA18182~orig.jpg",
+  Neptune: "https://images-assets.nasa.gov/image/PIA01492/PIA01492~orig.jpg",
+};
+
+function getPlanetCards() {
+  return planetNames.map((planetName) => ({
+    name: planetName,
+    image: planetImages[planetName] || "/img/solar-system-fallback.svg",
+  }));
+}
 
 app.set("view engine", "ejs");
 app.set("views", path.join(__dirname, "views"));
@@ -43,7 +60,7 @@ function getPlanetInfo(planetName) {
 async function getRandomBackgroundImage() {
   const url =
     `https://api.unsplash.com/photos/random/?client_id=${UNSPLASH_API_KEY}` +
-    "&featured=true&query=solar-system";
+    "&featured=true&orientation=landscape&query=outer-space-planets-solar-system";
 
   try {
     const response = await fetch(url);
@@ -52,9 +69,9 @@ async function getRandomBackgroundImage() {
     }
 
     const data = await response.json();
-    return data?.urls?.full || data?.urls?.regular || "/img/solar-system-fallback.jpg";
+    return data?.urls?.full || data?.urls?.regular || "/img/solar-system-fallback.svg";
   } catch (error) {
-    return "/img/solar-system-fallback.jpg";
+    return "/img/solar-system-fallback.svg";
   }
 }
 
@@ -64,6 +81,7 @@ app.get("/", async (req, res) => {
   res.render("index", {
     title: "Solar System",
     planetNames,
+    planets: getPlanetCards(),
     backgroundImage,
   });
 });
@@ -79,11 +97,16 @@ app.get("/planet", (req, res) => {
     });
   }
 
+  const normalizedPlanetInfo = {
+    ...planetInfo,
+    image: planetImages[planetName] || planetInfo.image || "/img/solar-system-fallback.svg",
+  };
+
   return res.render("planet", {
     title: planetName,
     planetNames,
     planetName,
-    planetInfo,
+    planetInfo: normalizedPlanetInfo,
   });
 });
 

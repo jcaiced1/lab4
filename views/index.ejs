@@ -18,15 +18,15 @@
 
 <section class="container py-5">
   <div class="row g-4">
-    <% planetNames.forEach((planetName) => { %>
+    <% planets.forEach((planet) => { %>
       <div class="col-md-6 col-xl-3">
         <article class="planet-card h-100">
-          <img src="/img/solar-system-fallback.svg" alt="<%= planetName %>" class="planet-card-image">
+          <img src="<%= planet.image %>" alt="<%= planet.name %>" class="planet-card-image">
           <div class="planet-card-body">
             <p class="planet-order">Solar System Planet</p>
-            <h2><%= planetName %></h2>
+            <h2><%= planet.name %></h2>
             <p>Open the planet page to see its image, number of moons, radius, year length, and more.</p>
-            <a href="/planet?planetName=<%= planetName %>" class="btn btn-outline-light">View Details</a>
+            <a href="/planet?planetName=<%= planet.name %>" class="btn btn-outline-light">View Details</a>
           </div>
         </article>
       </div>
