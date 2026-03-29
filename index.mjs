@@ -11,7 +11,7 @@ const __dirname = path.dirname(__filename);
 const app = express();
 const PORT = process.env.PORT || 3000;
 const NASA_API_KEY =
-  process.env.NASA_API_KEY || "9mUzIkhlZCZaOoMfspgZjMnwZCZ4LiRHtkgkambD";
+  process.env.NASA_API_KEY || "9mUzIkhlZCZaOoMfspg7jMmwZCZ4LiRHtkgkambD";
 const NASA_FALLBACK_KEY = "DEMO_KEY";
 const UNSPLASH_API_KEY =
   process.env.UNSPLASH_API_KEY ||
@@ -95,24 +95,34 @@ async function fetchApod(date, apiKey) {
     throw new Error(`NASA APOD request failed with status ${response.status}`);
   }
 
-  return response.json();
+  const apod = await response.json();
+
+  if (!apod?.title || !apod?.date || !apod?.url || !apod?.media_type) {
+    throw new Error("NASA APOD response is missing required fields.");
+  }
+
+  return apod;
 }
 
 async function getApod(date) {
   const apiKeys = [NASA_API_KEY, NASA_FALLBACK_KEY];
   const requestDates = date ? [date, null] : [null];
+  const failures = [];
 
   for (const apiKey of apiKeys) {
     for (const requestDate of requestDates) {
       try {
         return await fetchApod(requestDate, apiKey);
       } catch (error) {
+        const apiKeyLabel = apiKey === NASA_API_KEY ? "NASA_API_KEY" : "DEMO_KEY";
+        const dateLabel = requestDate || "latest";
+        failures.push(`${apiKeyLabel} (${dateLabel}): ${error.message}`);
         continue;
       }
     }
   }
 
-  throw new Error("NASA APOD request failed for all configured API keys.");
+  throw new Error(`NASA APOD request failed. ${failures.join(" | ")}`);
 }
 
 app.get("/", async (req, res) => {
@@ -122,6 +132,7 @@ app.get("/", async (req, res) => {
   try {
     homeApod = await getApod();
   } catch (error) {
+    console.error("Home APOD load failed:", error.message);
     homeApod = null;
   }
 
@@ -169,6 +180,7 @@ app.get("/nasa", async (req, res) => {
       error: null,
     });
   } catch (error) {
+    console.error("NASA route failed:", error.message);
     return res.status(502).render("nasa", {
       title: "NASA Picture of the Day",
       planetNames,
