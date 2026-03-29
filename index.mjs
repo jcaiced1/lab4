@@ -37,6 +37,11 @@ const planetImages = {
   Neptune: "https://images-assets.nasa.gov/image/PIA01492/PIA01492~orig.jpg",
 };
 
+app.locals.courseName = "CST336 Internet Programming";
+app.locals.studentName = "Jose Caicedo";
+app.locals.schoolName = "California State University, Monterey Bay";
+app.locals.currentYear = new Date().getFullYear();
+
 function getPlanetCards() {
   return planetNames.map((planetName) => ({
     name: planetName,
@@ -100,12 +105,20 @@ async function getApod(date) {
 
 app.get("/", async (req, res) => {
   const backgroundImage = await getRandomBackgroundImage();
+  let homeApod = null;
+
+  try {
+    homeApod = await getApod(getPacificDate());
+  } catch (error) {
+    homeApod = null;
+  }
 
   res.render("index", {
     title: "Solar System",
     planetNames,
     planets: getPlanetCards(),
     backgroundImage,
+    homeApod,
   });
 });
 
