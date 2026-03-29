@@ -1,0 +1,10 @@
+services:
+  - type: web
+    name: lab4-solar-system
+    runtime: node
+    plan: free
+    buildCommand: npm install
+    startCommand: node index.mjs
+    envVars:
+      - key: NODE_VERSION
+        value: 20

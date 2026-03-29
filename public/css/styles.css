@@ -1,0 +1,160 @@
+:root {
+  --bg: #08111f;
+  --bg-soft: #101c33;
+  --panel: rgba(11, 21, 40, 0.86);
+  --text: #f5f7fb;
+  --muted: #b8c2d9;
+  --accent: #f7b538;
+  --line: rgba(255, 255, 255, 0.12);
+}
+
+body {
+  font-family: "Space Grotesk", sans-serif;
+  background:
+    radial-gradient(circle at top, rgba(78, 111, 255, 0.22), transparent 30%),
+    linear-gradient(180deg, #060c18 0%, #08111f 45%, #0d1930 100%);
+  color: var(--text);
+  min-height: 100vh;
+}
+
+.site-nav {
+  background: rgba(5, 11, 22, 0.88);
+  backdrop-filter: blur(14px);
+  border-bottom: 1px solid var(--line);
+}
+
+.nav-pill {
+  border: 1px solid rgba(247, 181, 56, 0.5);
+  border-radius: 999px;
+  margin-left: 0.5rem;
+}
+
+.hero {
+  background-position: center;
+  background-size: cover;
+  border-bottom: 1px solid var(--line);
+}
+
+.hero-copy {
+  max-width: 720px;
+  padding: 7rem 0;
+}
+
+.hero-copy h1,
+.nasa-panel h1 {
+  font-size: clamp(2.8rem, 6vw, 5rem);
+  font-weight: 700;
+}
+
+.eyebrow {
+  color: var(--accent);
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  font-size: 0.8rem;
+}
+
+.planet-card,
+.info-panel,
+.nasa-panel {
+  background: var(--panel);
+  border: 1px solid var(--line);
+  border-radius: 24px;
+  overflow: hidden;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.22);
+}
+
+.planet-card-image,
+.planet-hero-image,
+.apod-media {
+  width: 100%;
+  object-fit: cover;
+}
+
+.planet-card-image {
+  height: 220px;
+}
+
+.planet-card-body,
+.nasa-panel {
+  padding: 1.5rem;
+}
+
+.planet-order {
+  color: var(--accent);
+  margin-bottom: 0.4rem;
+}
+
+.planet-layout {
+  display: grid;
+  gap: 2rem;
+  grid-template-columns: minmax(0, 1.5fr) minmax(320px, 0.9fr);
+  align-items: start;
+}
+
+.planet-description,
+.apod-copy {
+  color: var(--muted);
+  line-height: 1.8;
+}
+
+.planet-hero-image {
+  max-height: 480px;
+  border-radius: 24px;
+  margin-top: 1.5rem;
+}
+
+.info-panel {
+  padding: 1.75rem;
+  position: sticky;
+  top: 100px;
+}
+
+.planet-facts {
+  display: grid;
+  gap: 1rem;
+  margin: 0;
+}
+
+.planet-facts div {
+  padding-bottom: 1rem;
+  border-bottom: 1px solid var(--line);
+}
+
+.planet-facts dt {
+  color: var(--muted);
+  font-size: 0.88rem;
+}
+
+.planet-facts dd {
+  margin: 0.2rem 0 0;
+  font-size: 1.1rem;
+  font-weight: 500;
+}
+
+.apod-media {
+  max-height: 650px;
+  border-radius: 18px;
+  margin-bottom: 1.5rem;
+}
+
+.text-secondary,
+.lead,
+.planet-card-body p {
+  color: var(--muted) !important;
+}
+
+@media (max-width: 992px) {
+  .planet-layout {
+    grid-template-columns: 1fr;
+  }
+
+  .info-panel {
+    position: static;
+  }
+
+  .nav-pill {
+    margin-left: 0;
+    margin-top: 0.5rem;
+    display: inline-block;
+  }
+}

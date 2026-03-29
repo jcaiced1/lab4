@@ -1,0 +1,37 @@
+<%- include("partials/header", { title, planetNames }) %>
+
+<main class="hero" style="background-image: linear-gradient(rgba(4, 10, 24, 0.72), rgba(4, 10, 24, 0.88)), url('<%= backgroundImage %>');">
+  <section class="container py-5">
+    <div class="hero-copy">
+      <p class="eyebrow">Lab 4 Express App</p>
+      <h1>Explore the Solar System</h1>
+      <p class="lead">
+        Browse all eight planets, review core facts like moons and radius,
+        and check today's Astronomy Picture of the Day from NASA.
+      </p>
+      <div class="hero-actions">
+        <a class="btn btn-warning btn-lg" href="/nasa">See Today's NASA Image</a>
+      </div>
+    </div>
+  </section>
+</main>
+
+<section class="container py-5">
+  <div class="row g-4">
+    <% planetNames.forEach((planetName) => { %>
+      <div class="col-md-6 col-xl-3">
+        <article class="planet-card h-100">
+          <img src="/img/solar-system-fallback.jpg" alt="<%= planetName %>" class="planet-card-image">
+          <div class="planet-card-body">
+            <p class="planet-order">Solar System Planet</p>
+            <h2><%= planetName %></h2>
+            <p>Open the planet page to see its image, number of moons, radius, year length, and more.</p>
+            <a href="/planet?planetName=<%= planetName %>" class="btn btn-outline-light">View Details</a>
+          </div>
+        </article>
+      </div>
+    <% }) %>
+  </div>
+</section>
+
+<%- include("partials/footer") %>
