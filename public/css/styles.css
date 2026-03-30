@@ -473,7 +473,7 @@ body {
   height: 44px;
   object-fit: contain;
   border-radius: 10px;
-  background: rgba(255, 255, 255, 0.08);
+  background: #ffffff;
   padding: 0.25rem;
 }
 
@@ -545,5 +545,80 @@ body {
 
   .footer-school {
     align-items: flex-start;
+  }
+}
+
+@media (max-width: 768px) {
+  .hero-copy h1,
+  .nasa-panel h1 {
+    font-size: clamp(2.4rem, 13vw, 3.7rem);
+  }
+
+  .planet-showcase-copy h2 {
+    font-size: clamp(1.8rem, 9vw, 2.6rem);
+  }
+
+  .planet-preview-panel {
+    min-height: 500px;
+  }
+
+  .planet-preview-body {
+    padding: 1.35rem;
+  }
+
+  .planet-preview-body h3 {
+    font-size: clamp(1.9rem, 10vw, 2.6rem);
+  }
+
+  .planet-preview-body p {
+    font-size: 0.98rem;
+    line-height: 1.65;
+  }
+
+  .footer-meta {
+    flex-wrap: wrap;
+  }
+}
+
+@media (max-width: 576px) {
+  .planet-marquee {
+    padding-top: 1.35rem;
+    padding-bottom: 1.8rem;
+  }
+
+  .planet-card {
+    width: 190px;
+    min-width: 190px;
+  }
+
+  .planet-card + .planet-card,
+  .planet-marquee-group + .planet-marquee-group {
+    margin-left: -3.2rem;
+  }
+
+  .planet-card-image {
+    height: 170px;
+  }
+
+  .planet-card-body,
+  .nasa-panel {
+    padding: 1.15rem;
+  }
+
+  .planet-card-body h2 {
+    font-size: 1.5rem;
+  }
+
+  .planet-preview-panel {
+    min-height: 440px;
+  }
+
+  .planet-preview-body {
+    padding: 1.1rem;
+  }
+
+  .footer-logo {
+    width: 40px;
+    height: 40px;
   }
 }
