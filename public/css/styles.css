@@ -468,6 +468,10 @@ body {
   gap: 0.9rem;
 }
 
+.footer-school-copy {
+  min-width: 0;
+}
+
 .footer-logo {
   width: 44px;
   height: 44px;
@@ -562,6 +566,10 @@ body {
     min-height: 500px;
   }
 
+  .planet-preview-image {
+    object-position: center;
+  }
+
   .planet-preview-body {
     padding: 1.35rem;
   }
@@ -581,6 +589,11 @@ body {
 }
 
 @media (max-width: 576px) {
+  .planet-showcase {
+    padding-left: 0.35rem;
+    padding-right: 0.35rem;
+  }
+
   .planet-marquee {
     padding-top: 1.35rem;
     padding-bottom: 1.8rem;
@@ -610,11 +623,51 @@ body {
   }
 
   .planet-preview-panel {
-    min-height: 440px;
+    min-height: 430px;
+  }
+
+  .planet-preview-card {
+    border-radius: 22px;
+  }
+
+  .planet-preview-image {
+    object-position: 64% center;
   }
 
   .planet-preview-body {
     padding: 1.1rem;
+    max-width: calc(100% - 1rem);
+  }
+
+  .planet-preview-body p {
+    max-width: 100%;
+    font-size: 0.94rem;
+    line-height: 1.55;
+  }
+
+  .site-footer {
+    padding-left: 0.85rem;
+    padding-right: 0.85rem;
+  }
+
+  .footer-inner {
+    gap: 0.8rem;
+    padding: 1rem 0;
+  }
+
+  .footer-school {
+    width: 100%;
+    gap: 0.75rem;
+  }
+
+  .footer-school-copy strong,
+  .footer-school-copy p {
+    overflow-wrap: anywhere;
+  }
+
+  .footer-meta {
+    width: 100%;
+    justify-content: space-between;
   }
 
   .footer-logo {
