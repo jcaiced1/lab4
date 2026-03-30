@@ -81,6 +81,12 @@ async function getRandomBackgroundImage() {
   }
 }
 
+function getPacificDate() {
+  return new Intl.DateTimeFormat("en-CA", {
+    timeZone: "America/Los_Angeles",
+  }).format(new Date());
+}
+
 async function fetchApod(date, apiKey) {
   const endpoint = new URL("https://api.nasa.gov/planetary/apod");
   endpoint.searchParams.set("api_key", apiKey);
@@ -135,7 +141,7 @@ app.get("/", async (req, res) => {
   let homeApod = null;
 
   try {
-    homeApod = await getApod();
+    homeApod = await getApod(getPacificDate());
   } catch (error) {
     console.error("Home APOD load failed:", error.message);
     homeApod = null;
@@ -176,7 +182,7 @@ app.get("/planet", (req, res) => {
 
 app.get("/nasa", async (req, res) => {
   try {
-    const apod = await getApod();
+    const apod = await getApod(getPacificDate());
 
     return res.render("nasa", {
       title: "NASA Picture of the Day",
